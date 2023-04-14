@@ -13,10 +13,10 @@ public class Application extends JFrame {
     private JLabel rabbitsLabel;
     private JLabel numberHeadsLabel;
     private JLabel numberLegsLabel;
-    private JTextField geeseField;
-    private JTextField rabbitsField;
-    private JTextField numberHeadsField;
-    private JTextField numberLegsField;
+    private JSpinner geeseSpinner;
+    private JSpinner rabbitsSpinner;
+    private JSpinner numberHeadsSpinner;
+    private JSpinner numberLegsSpinner;
     private JButton calculateButton;
 
     public static void main(String[] args) {
@@ -41,40 +41,35 @@ public class Application extends JFrame {
         setMinimumSize(new Dimension(250, 200));
 
         geeseLabel = new JLabel("Geese");
-        geeseField = new JTextField();
+        geeseSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
         geeseLabel.setDisplayedMnemonic('G');
-        geeseLabel.setLabelFor(geeseField);
-        geeseField.setHorizontalAlignment(JTextField.TRAILING);
+        geeseLabel.setLabelFor(geeseSpinner);
         add(geeseLabel);
-        add(geeseField);
+        add(geeseSpinner);
 
         rabbitsLabel = new JLabel("Rabbits");
-        rabbitsField = new JTextField();
+        rabbitsSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
         rabbitsLabel.setDisplayedMnemonic('R');
-        rabbitsLabel.setLabelFor(rabbitsField);
-        rabbitsField.setHorizontalAlignment(JTextField.TRAILING);
+        rabbitsLabel.setLabelFor(rabbitsSpinner);
         add(rabbitsLabel);
-        add(rabbitsField);
+        add(rabbitsSpinner);
 
         add(createButtonCalculator(), "span 2");
 
         numberHeadsLabel = new JLabel("Number of Heads");
-        numberHeadsField = new JTextField();
+        numberHeadsSpinner = new JSpinner();
         numberHeadsLabel.setDisplayedMnemonic('H');
-        numberHeadsLabel.setLabelFor(numberHeadsField);
-        numberHeadsField.setEditable(false);
-        numberHeadsField.setHorizontalAlignment(JTextField.TRAILING);
+        numberHeadsLabel.setLabelFor(numberHeadsSpinner);
+
         add(numberHeadsLabel);
-        add(numberHeadsField);
+        add(numberHeadsSpinner);
 
         numberLegsLabel = new JLabel("Number of Legs");
-        numberLegsField = new JTextField();
+        numberLegsSpinner = new JSpinner();
         numberLegsLabel.setDisplayedMnemonic('L');
-        numberLegsLabel.setLabelFor(numberLegsField);
-        numberLegsField.setEditable(false);
-        numberLegsField.setHorizontalAlignment(JTextField.TRAILING);
+        numberLegsLabel.setLabelFor(numberLegsSpinner);
         add(numberLegsLabel);
-        add(numberLegsField);
+        add(numberLegsSpinner);
 
         pack();
 
@@ -92,19 +87,11 @@ public class Application extends JFrame {
     }
 
     private void takeActionCalculate(ActionEvent actionEvent) {
-        String geese = geeseField.getText();
-        int numberGeese = Integer.parseInt(geese);
-
-        String rabbits = rabbitsField.getText();
-        int numberRabbits = Integer.parseInt(rabbits);
-
+        int numberGeese = (Integer) geeseSpinner.getValue();
+        int numberRabbits = (Integer) rabbitsSpinner.getValue();
         int numberHeads = numberGeese + numberRabbits;
-        String headsGeeseAndRabbits = Integer.toString(numberHeads);
-
         int numberLegs = (numberGeese * 2) + (numberRabbits * 4);
-        String legsGeeseAndRabbits = Integer.toString(numberLegs);
-
-        numberHeadsField.setText(headsGeeseAndRabbits);
-        numberLegsField.setText(legsGeeseAndRabbits);
+        numberHeadsSpinner.setValue(numberHeads);
+        numberLegsSpinner.setValue(numberLegs);
     }
 }
